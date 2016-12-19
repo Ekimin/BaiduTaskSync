@@ -1,17 +1,14 @@
 package com.he.BaiduTaskSync;
 
-import java.io.File;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
 import com.he.IOHandler.TaskHandler;
-import com.he.Utils.DBConfiguration;
 
 /**
  * 新增百度爬虫任务
@@ -27,6 +24,19 @@ public class SyncTask {
 		int maxID = th.getMaxID();
 		List<String> list = th.getObjectName("doc/上报数据名单20161109.xls");
 
-		th.addTaskToDB(list, maxID, "2016-", "2017-");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		String today = sdf.format(date);
+		System.out.println(today);
+		long time = date.getTime();
+		long btime = time/1000 -24*60*60;
+		date.setTime(btime * 1000);
+		String bday = sdf.format(date);
+		System.out.println(bday);
+
+		
+		
+		th.addTaskToDB(list, maxID, "2016-12-17", "2016-12-19");
+		System.out.println("completed!");
 	}
 }
